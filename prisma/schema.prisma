@@ -22,9 +22,10 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  enrollments  Enrollment[]
-  submissions  Submission[]
-  payments     Payment[]
+  enrollments    Enrollment[]
+  submissions    Submission[]
+  payments       Payment[]
+  LessonProgress LessonProgress[]
 }
 
 enum Role {
@@ -37,7 +38,7 @@ model Course {
   title       String
   slug        String   @unique
   description String?
-  price       Int      // amount in smallest currency unit (e.g., paise)
+  price       Int // amount in smallest currency unit (e.g., paise)
   currency    String   @default("INR")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -55,7 +56,7 @@ model Module {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  course Course @relation(fields: [courseId], references: [id])
+  course  Course   @relation(fields: [courseId], references: [id])
   lessons Lesson[]
 
   @@index([courseId])
@@ -69,14 +70,15 @@ model Lesson {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  module    Module   @relation(fields: [moduleId], references: [id])
-  resources Resource[]
+  module         Module           @relation(fields: [moduleId], references: [id])
+  resources      Resource[]
+  LessonProgress LessonProgress[]
 
   @@index([moduleId])
 }
 
 model Resource {
-  id       String @id @default(cuid())
+  id       String       @id @default(cuid())
   lessonId String
   type     ResourceType
   fileKey  String // storage key in S3/R2
@@ -95,15 +97,15 @@ enum ResourceType {
 }
 
 model Enrollment {
-  id        String   @id @default(cuid())
+  id        String           @id @default(cuid())
   userId    String
   courseId  String
   status    EnrollmentStatus @default(ACTIVE)
   paymentId String?
-  createdAt DateTime @default(now())
+  createdAt DateTime         @default(now())
 
-  user    User   @relation(fields: [userId], references: [id])
-  course  Course @relation(fields: [courseId], references: [id])
+  user    User     @relation(fields: [userId], references: [id])
+  course  Course   @relation(fields: [courseId], references: [id])
   payment Payment? @relation(fields: [paymentId], references: [id])
 
   @@unique([userId, courseId])
@@ -127,20 +129,20 @@ model Payment {
   userId    String
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user       User         @relation(fields: [userId], references: [id])
   enrollment Enrollment[]
 
   @@index([userId])
 }
 
 model Assignment {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   courseId    String
   title       String
   description String?
   dueAt       DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   course      Course       @relation(fields: [courseId], references: [id])
   submissions Submission[]
@@ -149,14 +151,14 @@ model Assignment {
 }
 
 model Submission {
-  id           String   @id @default(cuid())
+  id           String           @id @default(cuid())
   assignmentId String
   userId       String
   fileKey      String
   status       SubmissionStatus @default(SUBMITTED)
   feedback     String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
 
   assignment Assignment @relation(fields: [assignmentId], references: [id])
   user       User       @relation(fields: [userId], references: [id])
@@ -175,20 +177,35 @@ model Subscriber {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
-  tags      String?  // comma-separated for simplicity in v1
+  tags      String? // comma-separated for simplicity in v1
   createdAt DateTime @default(now())
 }
 
 model Newsletter {
-  id        String   @id @default(cuid())
+  id        String           @id @default(cuid())
   title     String
-  content   String   // markdown or HTML
+  content   String // markdown or HTML
   status    NewsletterStatus @default(DRAFT)
-  createdAt DateTime @default(now())
+  createdAt DateTime         @default(now())
   sentAt    DateTime?
 }
 
 enum NewsletterStatus {
   DRAFT
   SENT
+}
+
+/// Tracks per-user lesson completion
+model LessonProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  lessonId    String
+  completedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([lessonId])
 }
