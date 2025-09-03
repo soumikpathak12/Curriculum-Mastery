@@ -31,8 +31,8 @@ export default function RegisterPage() {
       const sign = await signIn("credentials", { redirect: false, email, password })
       if (sign?.error) throw new Error("Auto sign-in failed")
       router.push("/dashboard")
-    } catch (err: any) {
-      setError(err.message || "Something went wrong")
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Something went wrong")
     } finally {
       setLoading(false)
     }

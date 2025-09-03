@@ -9,6 +9,6 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   // TODO: create subscriber { email, name?, tags? }
-  const _body = await req.json().catch(() => ({}))
+  await req.json().catch(() => ({})) // Parse body for future implementation
   return Response.json({ ok: true }, { status: 201 })
 }

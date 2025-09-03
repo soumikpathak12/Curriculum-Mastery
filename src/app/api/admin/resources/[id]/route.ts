@@ -5,14 +5,14 @@ import { prisma } from '@/lib/prisma'
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await getServerSession(authOptions)
   if (!session?.user || session.user.role !== 'ADMIN') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const id = params.id
+  const { id } = await params
   if (!id) return NextResponse.json({ error: 'id required' }, { status: 400 })
 
   try {

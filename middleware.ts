@@ -19,8 +19,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(loginUrl)
     }
     // Role check
-    // @ts-expect-error injected in jwt callback
-    if (token.role !== 'ADMIN') {
+    if ((token as { role?: string }).role !== 'ADMIN') {
       if (pathname.startsWith('/api')) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
       }

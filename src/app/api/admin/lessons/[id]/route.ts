@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id
+    const { id } = await params
     const body = await req.json().catch(() => ({}))
     const { title } = body as { title?: string }
     if (!title) return NextResponse.json({ error: 'title is required' }, { status: 400 })
@@ -16,9 +16,9 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id
+    const { id } = await params
     await prisma.resource.deleteMany({ where: { lessonId: id } })
     const deleted = await prisma.lesson.delete({ where: { id } })
     return NextResponse.json({ lesson: deleted })
