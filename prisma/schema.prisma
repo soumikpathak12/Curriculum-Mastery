@@ -181,6 +181,13 @@ model Subscriber {
   createdAt DateTime @default(now())
 }
 
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+}
+
 model Newsletter {
   id        String           @id @default(cuid())
   title     String
