@@ -1,10 +1,11 @@
 [build]
-  command = "npm run build"
+  command = "npx prisma generate && npm run build"
   publish = ".next"
   
 [build.environment]
   NODE_VERSION = "20"
   NPM_VERSION = "10"
+  PRISMA_CLI_BINARY_TARGETS = "native,rhel-openssl-1.0.x"
 
 # Next.js plugin for Netlify (App Router supported)
 [[plugins]]
