@@ -1,0 +1,47 @@
+/* Brand Color Palette */
+:root {
+  /* Primary Brand Colors */
+  --platinum: #E8E6E7;
+  --timberwolf: #DCD7D3;
+  --white-smoke: #F5F5F5;
+  --federal-blue: #030E50;
+  --zaffre: #0213A3;
+  
+  /* Semantic Color Mappings */
+  --brand-primary: var(--federal-blue);
+  --brand-secondary: var(--zaffre);
+  --brand-neutral-light: var(--platinum);
+  --brand-neutral-warm: var(--timberwolf);
+  --brand-background: var(--white-smoke);
+  
+  /* Gradients */
+  --brand-gradient-primary: linear-gradient(135deg, var(--federal-blue), var(--zaffre));
+  --brand-gradient-neutral: linear-gradient(135deg, var(--white-smoke), var(--platinum));
+  --brand-gradient-background: linear-gradient(135deg, var(--white-smoke), var(--timberwolf), var(--platinum));
+}
+
+/* Utility Classes */
+.bg-brand-primary { background-color: var(--brand-primary); }
+.bg-brand-secondary { background-color: var(--brand-secondary); }
+.bg-brand-neutral-light { background-color: var(--brand-neutral-light); }
+.bg-brand-neutral-warm { background-color: var(--brand-neutral-warm); }
+.bg-brand-background { background-color: var(--brand-background); }
+
+.text-brand-primary { color: var(--brand-primary); }
+.text-brand-secondary { color: var(--brand-secondary); }
+
+.border-brand-primary { border-color: var(--brand-primary); }
+.border-brand-secondary { border-color: var(--brand-secondary); }
+.border-brand-neutral-light { border-color: var(--brand-neutral-light); }
+
+.bg-brand-gradient-primary { background: var(--brand-gradient-primary); }
+.bg-brand-gradient-neutral { background: var(--brand-gradient-neutral); }
+.bg-brand-gradient-background { background: var(--brand-gradient-background); }
+
+/* Hover States */
+.hover\:bg-brand-primary:hover { background-color: var(--brand-primary); }
+.hover\:bg-brand-secondary:hover { background-color: var(--brand-secondary); }
+.hover\:text-brand-primary:hover { color: var(--brand-primary); }
+.hover\:text-brand-secondary:hover { color: var(--brand-secondary); }
+.hover\:border-brand-primary:hover { border-color: var(--brand-primary); }
+.hover\:border-brand-secondary:hover { border-color: var(--brand-secondary); }
