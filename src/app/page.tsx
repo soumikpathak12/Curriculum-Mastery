@@ -7,6 +7,7 @@ import Header from '@/components/Header'
 import ContactUs from '@/components/ContactUs'
 import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
+import StickyEnrollBanner from '@/components/StickyEnrollBanner'
 
 export default function Home() {
   const [email, setEmail] = useState('')
@@ -44,20 +45,12 @@ export default function Home() {
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, var(--white-smoke), var(--platinum), var(--timberwolf))'}}>
 
       <Header />
-
-      <main className="relative z-10 mx-auto max-w-6xl p-4 sm:p-6">
-        {/* Hero */}
-        <section className="relative mt-4 rounded-2xl p-4 sm:p-6 lg:p-10 bg-white/80 backdrop-blur-sm ring-1 ring-gray-100 overflow-hidden">
-          {/* Subtle brand watermark background */}
-          <Image
-            src="/assets/Curriculum Mastery Logo Large.png"
-            alt="Curriculum Mastery watermark"
-            fill
-            className="object-contain object-right-bottom opacity-10 pointer-events-none -z-10"
-            priority
-          />
-          <div className="relative grid gap-5 sm:gap-8 lg:grid-cols-3 lg:items-center z-10">
-            <div className="lg:col-span-2">
+      
+      {/* Hero Section - Full Width */}
+      <section className="relative mx-auto max-w-6xl p-4 sm:p-6">
+        <div className="relative mt-4 rounded-2xl p-4 sm:p-6 lg:p-10 bg-white/80 backdrop-blur-sm ring-1 ring-gray-100 overflow-hidden">
+          <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 z-10">
+            <div className="flex-1">
               <span className="inline-block rounded-full px-3 py-1 text-xs font-medium bg-brand-neutral-light text-brand-primary">
                 IB & IGCSE Music Educators Course
               </span>
@@ -70,64 +63,55 @@ export default function Home() {
                 <strong>Clarity. Purpose. Confidence.</strong> Get hands-on tools, expert guidance, and curriculum support designed for IB/IGCSE music teachers.
               </p>
               
-              <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <div className="mt-5 sm:mt-6">
                 <Link 
-                  href="/register" 
-                  className="rounded-lg px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 text-center bg-brand-gradient-primary"
+                  href="#what-youll-learn" 
+                  className="inline-block rounded-lg px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 text-center bg-brand-gradient-primary"
                 >
-                  Enroll Now - ₹49,900
+                  Learn More
                 </Link>
-                <Link 
-                  href="/course" 
-                  className="rounded-lg border-2 border-gray-300 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-gray-700 transition-all hover:border-brand-primary hover:text-brand-primary text-center"
-                >
-                  View Details
-                </Link>
+              </div>
+              
+              {/* Video positioned below Learn More button on mobile */}
+              <div className="mt-6 lg:hidden">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-100 aspect-[9/16] h-80 max-w-xs mx-auto">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-brand-primary rounded-full flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                        </svg>
+                      </div>
+                      <p className="text-gray-600">Video coming soon</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             
-            <div className="rounded-2xl border-2 border-white bg-white/80 p-4 sm:p-6 shadow-xl backdrop-blur-sm">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900">Course Overview</h2>
-              <div className="mt-4 space-y-3 sm:space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-full p-2 bg-brand-neutral-light">
-                    <svg className="h-4 w-4 sm:h-5 sm:w-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 text-sm sm:text-base">Duration</div>
-                    <div className="text-xs sm:text-sm text-gray-600">12 Hours Live Training</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <div className="rounded-full p-2 bg-brand-neutral-light">
-                    <svg className="h-4 w-4 sm:h-5 sm:w-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 text-sm sm:text-base">Certificate</div>
-                    <div className="text-xs sm:text-sm text-gray-600">Completion Certificate</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <div className="rounded-full p-2 bg-brand-neutral-light">
-                    <svg className="h-4 w-4 sm:h-5 sm:w-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 text-sm sm:text-base">Format</div>
-                    <div className="text-xs sm:text-sm text-gray-600">Live Online • English</div>
+            {/* Video positioned to the right on desktop */}
+            <div className="hidden lg:block w-64 flex-shrink-0">
+              <div className="relative rounded-2xl overflow-hidden bg-gray-100 aspect-[9/16] h-80">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-primary rounded-full flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                      </svg>
+                    </div>
+                    <p className="text-gray-600">Video coming soon</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+
+      {/* Two Column Layout - Starts Here */}
+      <div className="flex max-w-7xl mx-auto mt-12">
+        {/* Main Content Column */}
+        <main className="flex-1 relative z-10 p-4 sm:p-6">
 
         {/* Exclusive Features */}
         <section className="mt-12 sm:mt-16">
@@ -179,7 +163,7 @@ export default function Home() {
         </section>
 
         {/* What You'll Learn */}
-        <section className="mt-12 sm:mt-16">
+        <section id="what-youll-learn" className="mt-12 sm:mt-16">
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">What You&apos;ll Learn</h2>
             <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">Comprehensive curriculum covering both IGCSE and IB frameworks</p>
@@ -280,12 +264,12 @@ export default function Home() {
         <section className="mt-12 sm:mt-16">
           <div className="grid gap-8 sm:gap-12 lg:grid-cols-2">
             {/* Requirements */}
-            <div className="rounded-2xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-orange-50 p-8">
+            <div className="rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-blue-50 to-sky-50 p-8">
               <h2 className="text-2xl font-bold text-gray-900">Requirements</h2>
               <div className="mt-6 space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-red-100 p-1 mt-1">
-                    <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="rounded-full bg-blue-100 p-1 mt-1">
+                    <svg className="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                     </svg>
                   </div>
@@ -295,8 +279,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-red-100 p-1 mt-1">
-                    <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="rounded-full bg-blue-100 p-1 mt-1">
+                    <svg className="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -306,8 +290,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-red-100 p-1 mt-1">
-                    <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="rounded-full bg-blue-100 p-1 mt-1">
+                    <svg className="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
@@ -316,18 +300,18 @@ export default function Home() {
                     <p className="text-sm text-gray-700">4-5 hours of studying per week including notes, revision, and coursework</p>
                   </div>
                 </div>
-                <div className="rounded-lg bg-red-100 p-3 mt-4">
-                  <p className="text-sm font-medium text-red-800">⚠️ Limited seats available on first-come, first-serve basis. Course fee of ₹49,900 is non-refundable.</p>
+                <div className="rounded-lg bg-blue-100 p-3 mt-4">
+                  <p className="text-sm font-medium text-blue-800">⚠️ Limited seats available on first-come, first-serve basis. Course fee of ₹49,900 is non-refundable.</p>
                 </div>
               </div>
             </div>
 
             {/* Resources */}
-            <div className="rounded-2xl border-2 border-green-100 bg-gradient-to-br from-green-50 to-emerald-50 p-8">
+            <div className="rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-blue-50 to-sky-50 p-8">
               <h2 className="text-2xl font-bold text-gray-900">Resources Provided</h2>
               <div className="mt-6 space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-green-100 p-1 mt-1">
+                  <div className="rounded-full bg-blue-100 p-1 mt-1">
                     <svg className="h-4 w-4 " style={{color: '#030E50'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
@@ -338,7 +322,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-green-100 p-1 mt-1">
+                  <div className="rounded-full bg-blue-100 p-1 mt-1">
                     <svg className="h-4 w-4 " style={{color: '#030E50'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
@@ -349,7 +333,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-green-100 p-1 mt-1">
+                  <div className="rounded-full bg-blue-100 p-1 mt-1">
                     <svg className="h-4 w-4 " style={{color: '#030E50'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -360,7 +344,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-green-100 p-1 mt-1">
+                  <div className="rounded-full bg-blue-100 p-1 mt-1">
                     <svg className="h-4 w-4 " style={{color: '#030E50'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -402,10 +386,10 @@ export default function Home() {
                     <p className="text-lg leading-relaxed">
                       With over <strong>14 years of experience</strong> in music education and performance, Pratik Kulgod brings passion and expertise to the field of music. He currently serves as <strong>Head of Music at Singapore International School</strong>. A strong advocate for using music that students enjoy to teach concepts, he also championed the revival of a fun interschool music competition called Conzert, hosted by his school.
                     </p>
-                    <p>
+                    <p className="text-lg leading-relaxed">
                       A dedicated drummer and educator, he holds a <strong>PGCE from the University of Warwick</strong> and earned a <strong>Distinction in Grade 8 Rock & Pop Drums from Trinity College London</strong>. His musical journey began under the guidance of the renowned drummer Gino Banks, and he continues to expand his rhythmic vocabulary through konnakol training with percussion maestro Viveick Rajagopalan.
                     </p>
-                    <p>
+                    <p className="text-lg leading-relaxed">
                       Beyond the classroom, Pratik has actively supported music teachers for the past six years - both independently and as an <strong>academic consultant with Trinity College London</strong>. His dedication to nurturing musical talent extends to the stage, where he has performed across India with bands such as Dindun, Daira, Rejected Cartoons, Vajra, and Vizia, as well as in numerous collaborative drumming sessions.
                     </p>
                   </div>
@@ -524,7 +508,20 @@ export default function Home() {
           </div>
         </section>
 
-      </main>
+        </main>
+        
+        {/* Right Column for Banner */}
+        <aside className="hidden xl:block w-80 flex-shrink-0">
+          <div className="sticky top-42 p-4">
+            <StickyEnrollBanner />
+          </div>
+        </aside>
+      </div>
+
+      {/* Mobile Enroll Banner - Above Footer */}
+      <section className="xl:hidden mx-auto max-w-6xl p-4 sm:p-6 mt-12">
+        <StickyEnrollBanner />
+      </section>
 
       <footer className="mt-16 border-t bg-gray-50">
         <div className="mx-auto max-w-6xl p-4 sm:p-6">

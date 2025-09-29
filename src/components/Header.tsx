@@ -31,18 +31,18 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between p-2 sm:p-3">
-        <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+        <Link href="/" className="flex items-center gap-1 hover:opacity-90 transition-opacity">
           <Image 
             src="/assets/Curriculum Mastery Logo Small (1).png" 
             alt="Curriculum Mastery Logo" 
-            width={192} 
-            height={192} 
-            className="h-[72px] w-auto sm:h-[96px]"
+            width={288} 
+            height={288} 
+            className="h-[108px] w-auto sm:h-[144px]"
             priority
           />
           <div className="flex flex-col">
-            <span className="text-base sm:text-lg font-bold text-brand-primary">Curriculum Mastery</span>
-            <span className="text-xs sm:text-sm text-gray-600">by Pratik Kulgod</span>
+            <span className="text-xl sm:text-3xl font-bold text-brand-primary leading-tight tracking-wide">Curriculum</span>
+            <span className="text-2xl sm:text-4xl font-bold text-brand-primary leading-tight uppercase">MASTERY</span>
           </div>
         </Link>
         

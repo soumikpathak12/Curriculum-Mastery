@@ -29,7 +29,7 @@ export default function ContactUs() {
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       // Send an email using mailto link
-      window.location.href = `mailto:pratik@currciculum-mastery.in?subject=Course Inquiry from ${formData.name}&body=${formData.message}%0A%0AContact Email: ${formData.email}`
+      window.location.href = `mailto:hello@curriculum-mastery.in?subject=Course Inquiry from ${formData.name}&body=${formData.message}%0A%0AContact Email: ${formData.email}`
       
       setSubmitStatus('success')
       setFormData({ name: '', email: '', message: '' })
@@ -67,8 +67,8 @@ export default function ContactUs() {
                 </div>
                 <div>
                   <h4 className="font-semibold">Email</h4>
-                  <a href="mailto:pratik@currciculum-mastery.in" className="text-white/90 hover:text-white transition-colors">
-                    pratik@currciculum-mastery.in
+                  <a href="mailto:hello@curriculum-mastery.in" className="text-white/90 hover:text-white transition-colors">
+                    hello@curriculum-mastery.in
                   </a>
                 </div>
               </div>
