@@ -1,17 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import ContactUs from '@/components/ContactUs'
 import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
 import StickyEnrollBanner from '@/components/StickyEnrollBanner'
+import { useSession } from 'next-auth/react'
 
 export default function Home() {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { data: session, status } = useSession()
   
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
@@ -40,6 +42,14 @@ export default function Home() {
       setIsSubmitting(false)
     }
   }
+
+  // Auto-trigger payment if redirected after sign up
+  useEffect(() => {
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('paynow') === '1' && status === 'authenticated') {
+      const btn = document.querySelector('[data-cashfree-pay]') as HTMLButtonElement | null;
+      if (btn) btn.click();
+    }
+  }, [status]);
 
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, var(--white-smoke), var(--platinum), var(--timberwolf))'}}>
@@ -437,7 +447,7 @@ export default function Home() {
                     <div className="flex items-center gap-3">
                       <div className="rounded-full p-2" style={{backgroundColor: '#E8E6E7'}}>
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{color: '#030E50'}}>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                       </div>
                       <span className="text-sm text-gray-700">Academic Consultant, Trinity College London</span>

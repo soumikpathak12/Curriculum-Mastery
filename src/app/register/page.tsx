@@ -2,10 +2,12 @@
 
 import { useState } from "react"
 import { signIn } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 
 export default function RegisterPage() {
   const router = useRouter()
+  const searchParams = useSearchParams();
+  const enrollAfter = searchParams.get('enroll') === '1';
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -30,7 +32,11 @@ export default function RegisterPage() {
       // Auto sign-in after registration
       const sign = await signIn("credentials", { redirect: false, email, password })
       if (sign?.error) throw new Error("Auto sign-in failed")
-      router.push("/dashboard")
+      if (enrollAfter) {
+        router.push("/?paynow=1");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong")
     } finally {
