@@ -32,7 +32,6 @@ export default function FAQ() {
     <section className="mt-12 sm:mt-16">
       <div className="text-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
-        <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">Get answers to common questions about the course</p>
       </div>
       <div className="mt-8 sm:mt-12 space-y-4">
         {faqs.map((faq, index) => (

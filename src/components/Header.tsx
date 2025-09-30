@@ -30,7 +30,7 @@ export default function Header() {
           : 'bg-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between p-2 sm:p-3">
+      <div className="flex w-full items-center justify-between pl-4 pr-2 py-2 sm:pl-6 sm:pr-3 sm:py-3">
         <Link href="/" className="flex items-center gap-1 hover:opacity-90 transition-opacity">
           <Image 
             src="/assets/Curriculum Mastery Logo Small (1).png" 
@@ -65,8 +65,7 @@ export default function Header() {
           </Link>
           <Link 
             href="/register" 
-            className="rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-md hover:shadow-lg transition-all"
-            style={{background: 'linear-gradient(135deg, var(--federal-blue), var(--zaffre))'}}
+            className="rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-md hover:shadow-lg transition-all bg-brand-primary mr-[50px]"
           >
             Enroll Now
           </Link>
@@ -127,8 +126,7 @@ export default function Header() {
             </Link>
             <Link 
               href="/register" 
-              className="w-full text-center rounded-lg px-4 py-2.5 text-white font-medium"
-              style={{background: 'linear-gradient(135deg, var(--federal-blue), var(--zaffre))'}}
+              className="w-full text-center rounded-lg px-4 py-2.5 text-white font-medium bg-brand-primary mr-[75px]"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Enroll Now

@@ -1,23 +1,23 @@
 /* Brand Color Palette */
 :root {
   /* Primary Brand Colors */
-  --platinum: #E8E6E7;
-  --timberwolf: #DCD7D3;
-  --white-smoke: #F5F5F5;
-  --federal-blue: #030E50;
-  --zaffre: #0213A3;
+  --dark-blue: #0a2b56;
+  --gray: #d7d4d4;
+  --gray-blue: #8b8c9b;
+  --cobalt-blue: #004aad;
+  --light-gray: #f7f6f7;
   
   /* Semantic Color Mappings */
-  --brand-primary: var(--federal-blue);
-  --brand-secondary: var(--zaffre);
-  --brand-neutral-light: var(--platinum);
-  --brand-neutral-warm: var(--timberwolf);
-  --brand-background: var(--white-smoke);
+  --brand-primary: var(--dark-blue);
+  --brand-secondary: var(--cobalt-blue);
+  --brand-neutral-light: var(--gray);
+  --brand-neutral-warm: var(--gray-blue);
+  --brand-background: var(--light-gray);
   
-  /* Gradients */
-  --brand-gradient-primary: linear-gradient(135deg, var(--federal-blue), var(--zaffre));
-  --brand-gradient-neutral: linear-gradient(135deg, var(--white-smoke), var(--platinum));
-  --brand-gradient-background: linear-gradient(135deg, var(--white-smoke), var(--timberwolf), var(--platinum));
+  /* Legacy gradient variables (now solid colors) */
+  --brand-gradient-primary: var(--dark-blue);
+  --brand-gradient-neutral: var(--light-gray);
+  --brand-gradient-background: var(--light-gray);
 }
 
 /* Utility Classes */

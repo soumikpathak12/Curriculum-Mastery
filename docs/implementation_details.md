@@ -20,17 +20,31 @@
   - Mobile: Video positioned below Learn More button (lg:hidden, max-w-xs mx-auto)
   - Removed: Course Overview section and logo watermark background
   - Two-column layout: Starts after hero section with main content left, enrollment banner right
+- **YouTube video integration**: Replaced video placeholders with actual YouTube embed:
+  - Video URL: `https://www.youtube.com/shorts/m4kdTUWkblA` converted to embed format
+  - Responsive iframe implementation with `aspect-[9/16]` ratio for vertical video format
+  - Full accessibility attributes including title, allowFullScreen, and proper iframe permissions
+  - Consistent styling with rounded corners and proper positioning for both mobile and desktop views
+- **Complete color scheme redesign**: Replaced all gradients with solid colors using new hex palette:
+  - Dark Blue (#0a2b56): Primary brand color for buttons, text highlights, and main elements
+  - Gray (#d7d4d4): Border colors and neutral backgrounds
+  - Gray Blue (#8b8c9b): Icon backgrounds and accent elements
+  - Cobalt Blue (#004aad): Secondary brand color for alternate elements
+  - Light Gray (#f7f6f7): Main background color and card backgrounds
+  - Removed all CSS gradients and replaced with solid color implementations
+  - Updated brand-colors.css with new color variables and mappings
+  - Applied consistent color scheme across all components (Header, StickyEnrollBanner, page sections)
 - **Simplified hero content**: Removed Course Overview details, kept core messaging and Learn More button
 - **Updated enrollment banner**: `StickyEnrollBanner.tsx` positioned in dedicated right sidebar column with sticky positioning
 - **Mobile enrollment banner**: Added enrollment banner above footer for mobile/tablet views (`xl:hidden`) using same `StickyEnrollBanner` component with consistent styling and spacing
 
 ## Files Touched
-- `src/app/page.tsx`: structure updates, cleanup, About section text formatting consistency, hero button removal, sticky banner integration, and mobile enrollment banner placement.
+- `src/app/page.tsx`: structure updates, cleanup, About section text formatting consistency, hero button removal, sticky banner integration, mobile enrollment banner placement, and complete color scheme redesign.
 - `src/components/ContactUs.tsx`: email address updates and typo fixes.
-- `src/components/Header.tsx`: logo sizing, branding text updates, and subtitle removal.
-- `src/components/StickyEnrollBanner.tsx`: enrollment banner component for right sidebar column and mobile placement.
+- `src/components/Header.tsx`: logo sizing, branding text updates, subtitle removal, and gradient-to-solid color conversion.
+- `src/components/StickyEnrollBanner.tsx`: enrollment banner component for right sidebar column, mobile placement, and color scheme updates.
+- `src/styles/brand-colors.css`: complete overhaul with new hex color palette and removal of gradient variables.
 - No changes to `src/components/FAQ.tsx`, `src/components/Testimonials.tsx`, but they are now central to the IA.
-- `src/styles/brand-colors.css` was referenced for gradient and color utilities.
 
 ## Content Sources
 - `docs/Website Content Working Document.txt`
