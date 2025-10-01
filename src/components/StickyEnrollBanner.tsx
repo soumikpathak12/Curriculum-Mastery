@@ -1,8 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 export default function StickyEnrollBanner() {
+  const { data: session } = useSession()
   return (
     <div className="w-full">
       <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-xl p-6">
@@ -35,10 +37,10 @@ export default function StickyEnrollBanner() {
 
         {/* Enroll Button */}
         <Link 
-          href="/register"
+          href={session ? "/dashboard" : "/register"}
           className="block w-full text-center rounded-lg px-6 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 bg-brand-primary"
         >
-          Enroll Now - <span style={{fontSize: '94%'}}>₹49,900/-</span>
+          {session ? "Go to Dashboard" : "Enroll Now"} - <span style={{fontSize: '94%'}}>₹49,900/-</span>
         </Link>
 
         {/* Additional Info */}

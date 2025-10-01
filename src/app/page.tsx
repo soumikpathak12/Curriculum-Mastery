@@ -15,7 +15,6 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { data: session, status } = useSession()
   
-
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)

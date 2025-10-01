@@ -3,8 +3,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 
 export default function Header() {
+  const { data: session } = useSession()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -57,18 +59,40 @@ export default function Header() {
           <Link href="#contact" className="text-gray-700 hover:text-brand-primary transition-colors font-medium">
             Contact
           </Link>
-          <Link
-            href="/login"
-            className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 hover:border-brand-primary hover:text-brand-primary transition-colors"
-          >
-            Login
-          </Link>
-          <Link 
-            href="/register" 
-            className="rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-md hover:shadow-lg transition-all bg-brand-primary mr-[50px]"
-          >
-            Enroll Now
-          </Link>
+          
+          {session ? (
+            <>
+              <Link href="/dashboard" className="text-gray-700 hover:text-brand-primary transition-colors font-medium">
+                Dashboard
+              </Link>
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-600">
+                  Welcome, {session.user?.name || session.user?.email}
+                </span>
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 hover:border-brand-primary hover:text-brand-primary transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 hover:border-brand-primary hover:text-brand-primary transition-colors"
+              >
+                Login
+              </Link>
+              <Link 
+                href="/register" 
+                className="rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-md hover:shadow-lg transition-all bg-brand-primary mr-[50px]"
+              >
+                Enroll Now
+              </Link>
+            </>
+          )}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -117,20 +141,47 @@ export default function Header() {
             >
               Contact
             </Link>
-            <Link 
-              href="/login" 
-              className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-200"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Login
-            </Link>
-            <Link 
-              href="/register" 
-              className="w-full text-center rounded-lg px-4 py-2.5 text-white font-medium bg-brand-primary mr-[75px]"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Enroll Now
-            </Link>
+            
+            {session ? (
+              <>
+                <Link 
+                  href="/dashboard" 
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <div className="px-4 py-2 text-sm text-gray-600 border-t border-gray-100">
+                  Welcome, {session.user?.name || session.user?.email}
+                </div>
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false)
+                    signOut({ callbackUrl: '/' })
+                  }}
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-200 text-left"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/login" 
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link 
+                  href="/register" 
+                  className="w-full text-center rounded-lg px-4 py-2.5 text-white font-medium bg-brand-primary mr-[75px]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Enroll Now
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

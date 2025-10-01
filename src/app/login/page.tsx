@@ -3,6 +3,8 @@
 import { useState, Suspense } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
+import Image from "next/image"
 
 function LoginForm() {
   const router = useRouter()
@@ -31,38 +33,40 @@ function LoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-6 space-y-4">
+    <form onSubmit={onSubmit} className="mt-8 space-y-6">
       <div>
-        <label className="block text-sm font-medium">Email</label>
+        <label className="block text-sm font-medium text-brand-primary mb-2">Email Address</label>
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 w-full rounded-md border px-3 py-2 outline-none focus:ring"
+          className="w-full rounded-xl border-2 border-brand-neutral-light px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-colors"
+          placeholder="Enter your email"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium">Password</label>
+        <label className="block text-sm font-medium text-brand-primary mb-2">Password</label>
         <input
           type="password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 w-full rounded-md border px-3 py-2 outline-none focus:ring"
+          className="w-full rounded-xl border-2 border-brand-neutral-light px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-colors"
+          placeholder="Enter your password"
         />
       </div>
       {error && (
-        <div className="text-sm text-red-600" role="alert">
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800" role="alert">
           {error}
         </div>
       )}
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
+        className="w-full rounded-xl bg-brand-primary px-6 py-4 text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? "Signing in..." : "Sign in"}
+        {loading ? "Signing in..." : "Sign In"}
       </button>
     </form>
   )
@@ -70,17 +74,53 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <main className="mx-auto max-w-md p-6">
-      <h1 className="text-2xl font-semibold">Login</h1>
-      <p className="mt-2 text-gray-600">Use your credentials to sign in.</p>
+    <div className="min-h-screen bg-brand-background">
+      {/* Header */}
+      <div className="flex w-full items-center justify-between pl-4 pr-2 py-2 sm:pl-6 sm:pr-3 sm:py-3">
+        <Link href="/" className="flex items-center gap-1 hover:opacity-90 transition-opacity">
+          <Image 
+            src="/assets/Curriculum Mastery Logo Small (1).png" 
+            alt="Curriculum Mastery Logo" 
+            width={288} 
+            height={288} 
+            className="h-[108px] w-auto sm:h-[144px]"
+            priority
+          />
+          <div className="flex flex-col">
+            <span className="text-xl sm:text-3xl font-bold text-brand-primary leading-tight tracking-wide">Curriculum</span>
+            <span className="text-2xl sm:text-4xl font-bold text-brand-primary leading-tight uppercase">MASTERY</span>
+          </div>
+        </Link>
+      </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <LoginForm />
-      </Suspense>
+      {/* Main Content */}
+      <main className="flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-brand-primary mb-2">Welcome Back</h1>
+              <p className="text-gray-600">Sign in to access your music curriculum</p>
+            </div>
 
-      <p className="mt-4 text-sm text-gray-600">
-        Don&apos;t have an account? <a href="/register" className="underline">Register</a>
-      </p>
-    </main>
+            <Suspense fallback={
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-primary"></div>
+              </div>
+            }>
+              <LoginForm />
+            </Suspense>
+
+            <div className="mt-8 text-center">
+              <p className="text-gray-600">
+                Don&apos;t have an account?{" "}
+                <Link href="/register" className="font-semibold text-brand-primary hover:text-brand-secondary transition-colors">
+                  Create Account
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   )
 }
