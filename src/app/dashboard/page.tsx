@@ -99,7 +99,7 @@ export default async function DashboardPage() {
         {enrollments.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
             <h2 className="text-xl font-semibold text-brand-primary mb-2">No Enrollments Yet</h2>
-            <p className="text-gray-600 mb-4">You haven't enrolled in any courses yet. Browse available courses above to get started!</p>
+            <p className="text-gray-600 mb-4">You haven&apos;t enrolled in any courses yet. Browse available courses above to get started!</p>
             <Link href="/" className="inline-block rounded-xl bg-brand-primary px-6 py-3 text-white font-semibold hover:shadow-lg transition-all">
               Browse Courses
             </Link>

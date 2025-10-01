@@ -11,13 +11,9 @@ interface PaymentButtonProps {
   children: React.ReactNode
 }
 
-declare global {
-  interface Window {
-    Cashfree: any
-  }
-}
+// Cashfree will be integrated later - keeping types simple for now
 
-export default function PaymentButton({ courseId, amount, className, children }: PaymentButtonProps) {
+export default function PaymentButton({ courseId, className, children }: PaymentButtonProps) {
   const { data: session } = useSession()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -86,24 +82,7 @@ export default function PaymentButton({ courseId, amount, className, children }:
     }
   }
 
-  const initializePayment = (paymentSessionId: string, orderId: string) => {
-    const cashfree = new window.Cashfree({
-      mode: process.env.NODE_ENV === 'production' ? 'production' : 'sandbox'
-    })
-
-    cashfree.checkout({
-      paymentSessionId,
-      returnUrl: `${window.location.origin}/payment/success?order_id=${orderId}`,
-      onSuccess: () => {
-        router.push(`/payment/success?order_id=${orderId}`)
-      },
-      onFailure: (error: any) => {
-        console.error('Payment failed:', error)
-        alert('Payment failed. Please try again.')
-        setLoading(false)
-      }
-    })
-  }
+  // Cashfree integration will be added here when ready
 
   return (
     <button

@@ -13,8 +13,7 @@ import { useSession } from 'next-auth/react'
 export default function Home() {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { data: session, status } = useSession()
-  
+  const { status } = useSession()
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)

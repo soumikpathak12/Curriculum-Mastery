@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user?.email) {
@@ -46,8 +46,8 @@ export async function POST(req: Request) {
       // Delete in correct order to avoid foreign key constraints
       
       // Delete lesson progress
-      for (const module of oldCourse.modules) {
-        for (const lesson of module.lessons) {
+      for (const courseModule of oldCourse.modules) {
+        for (const lesson of courseModule.lessons) {
           await prisma.lessonProgress.deleteMany({
             where: { lessonId: lesson.id }
           })
@@ -55,8 +55,8 @@ export async function POST(req: Request) {
       }
 
       // Delete resources
-      for (const module of oldCourse.modules) {
-        for (const lesson of module.lessons) {
+      for (const courseModule of oldCourse.modules) {
+        for (const lesson of courseModule.lessons) {
           await prisma.resource.deleteMany({
             where: { lessonId: lesson.id }
           })
@@ -64,9 +64,9 @@ export async function POST(req: Request) {
       }
 
       // Delete lessons
-      for (const module of oldCourse.modules) {
+      for (const courseModule of oldCourse.modules) {
         await prisma.lesson.deleteMany({
-          where: { moduleId: module.id }
+          where: { moduleId: courseModule.id }
         })
       }
 

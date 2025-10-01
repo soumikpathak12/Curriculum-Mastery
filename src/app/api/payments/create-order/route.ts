@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     const orderId = `order_${Date.now()}_${user.id.slice(-8)}`
 
     // Create payment record
-    const payment = await prisma.payment.create({
+    await prisma.payment.create({
       data: {
         orderId,
         amount: course.price,

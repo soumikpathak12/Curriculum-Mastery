@@ -1,12 +1,11 @@
 import { useState } from 'react';
 
-// Add Cashfree type to window
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Cashfree?: any;
-  }
-}
+// TODO: Add Cashfree type to window when integration is ready
+// declare global {
+//   interface Window {
+//     Cashfree?: any;
+//   }
+// }
 
 export default function CashfreePayButton(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const [loading, setLoading] = useState(false);
@@ -28,20 +27,9 @@ export default function CashfreePayButton(props: React.ButtonHTMLAttributes<HTML
         body: JSON.stringify(orderData),
       });
       const data = await res.json();
-      if (data.payment_session_id) {
-        // Load Cashfree's checkout.js script if not already loaded
-        if (!window.Cashfree) {
-          const script = document.createElement('script');
-          script.src = 'https://sdk.cashfree.com/js/v3/cashfree.js';
-          script.async = true;
-          document.body.appendChild(script);
-          script.onload = () => launchCheckout(data.payment_session_id);
-        } else {
-          launchCheckout(data.payment_session_id);
-        }
-      } else {
-        alert('Failed to create payment order.');
-      }
+      // TODO: Implement Cashfree integration when configured
+      console.log('Payment data:', data);
+      alert('Cashfree integration not yet configured. Using mock payment flow.');
     } catch {
       alert('Payment error.');
     } finally {
@@ -49,12 +37,13 @@ export default function CashfreePayButton(props: React.ButtonHTMLAttributes<HTML
     }
   };
 
-  function launchCheckout(paymentSessionId: string) {
-    if (window.Cashfree) {
-      const cashfree = new window.Cashfree(paymentSessionId);
-      cashfree.redirect();
-    }
-  }
+  // TODO: Uncomment when Cashfree integration is ready
+  // function launchCheckout(paymentSessionId: string) {
+  //   if (window.Cashfree) {
+  //     const cashfree = new window.Cashfree(paymentSessionId);
+  //     cashfree.redirect();
+  //   }
+  // }
 
   return (
     <button

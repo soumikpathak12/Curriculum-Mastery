@@ -19,7 +19,7 @@ export default function AdminHome() {
       } else {
         setMessage(`❌ ${data.error}`)
       }
-    } catch (error) {
+    } catch {
       setMessage('❌ Failed to cleanup courses')
     } finally {
       setLoading(false)
@@ -34,7 +34,7 @@ export default function AdminHome() {
       <div className="mt-6 p-4 border rounded-lg bg-yellow-50">
         <h2 className="text-lg font-semibold mb-2">Database Cleanup</h2>
         <p className="text-sm text-gray-600 mb-4">
-          Remove the old "Foundations of Design" course and replace it with the IB & IGCSE Music Educators Course.
+          Remove the old &quot;Foundations of Design&quot; course and replace it with the IB & IGCSE Music Educators Course.
         </p>
         <button
           onClick={cleanupCourses}

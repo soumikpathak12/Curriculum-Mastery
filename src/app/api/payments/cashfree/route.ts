@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Cashfree } from 'cashfree-pg';
+// import { Cashfree } from 'cashfree-pg';
 
-// Set your Cashfree credentials here or use environment variables
-const clientId = process.env.CASHFREE_CLIENT_ID || 'YOUR_CLIENT_ID';
-const clientSecret = process.env.CASHFREE_CLIENT_SECRET || 'YOUR_CLIENT_SECRET';
-const env = process.env.CASHFREE_ENV || 'TEST'; // 'TEST' or 'PROD'
+// TODO: Configure Cashfree when environment variables are set
+// const clientId = process.env.CASHFREE_CLIENT_ID || 'YOUR_CLIENT_ID';
+// const clientSecret = process.env.CASHFREE_CLIENT_SECRET || 'YOUR_CLIENT_SECRET';
+// const env = process.env.CASHFREE_ENV || 'TEST'; // 'TEST' or 'PROD'
 
-Cashfree.XClientId = clientId;
-Cashfree.XClientSecret = clientSecret;
-Cashfree.XEnvironment = env;
+// Cashfree.XClientId = clientId;
+// Cashfree.XClientSecret = clientSecret;
+// Cashfree.XEnvironment = env;
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,9 +30,17 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    const response = await Cashfree.PGCreateOrder(orderPayload);
-    return NextResponse.json(response);
+    // TODO: Uncomment when Cashfree is properly configured
+    // const response = await Cashfree.PGCreateOrder(orderPayload);
+    // return NextResponse.json(response);
+    
+    // For now, return mock response
+    return NextResponse.json({ 
+      message: 'Cashfree integration not configured yet',
+      orderPayload 
+    });
   } catch (error) {
-    return NextResponse.json({ error: error.message || 'Order creation failed' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Order creation failed';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

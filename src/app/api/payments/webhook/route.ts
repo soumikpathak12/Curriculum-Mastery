@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { Cashfree } from 'cashfree-pg'
+// import { Cashfree } from 'cashfree-pg'
 import crypto from 'crypto'
 
-// Initialize Cashfree
-Cashfree.XClientId = process.env.CASHFREE_APP_ID!
-Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY!
-Cashfree.XEnvironment = process.env.NODE_ENV === 'production' 
-  ? Cashfree.Environment.PRODUCTION 
-  : Cashfree.Environment.SANDBOX
+// TODO: Initialize Cashfree when environment variables are configured
+// Cashfree.XClientId = process.env.CASHFREE_APP_ID!
+// Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY!
+// Cashfree.XEnvironment = process.env.NODE_ENV === 'production' 
+//   ? Cashfree.Environment.PRODUCTION 
+//   : Cashfree.Environment.SANDBOX
 
 function verifyWebhookSignature(rawBody: string, signature: string, timestamp: string): boolean {
   const signedPayload = timestamp + rawBody
