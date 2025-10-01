@@ -29,7 +29,7 @@ async function main() {
       title: 'IB & IGCSE Music Educators Course',
       slug: 'ib-igcse-music-educators-course',
       description: 'Master the Skills to Teach IB & IGCSE Music with Confidence. Get hands-on tools, expert guidance, and curriculum support designed for IB/IGCSE music teachers.',
-      price: 49900,
+      price: 100, // ₹1 for testing (100 paise = ₹1)
       currency: 'INR',
       modules: {
         create: [

@@ -1,11 +1,18 @@
 [build]
-  command = "PRISMA_CLI_BINARY_TARGETS=rhel-openssl-1.0.x npx prisma generate && npm run build"
+  command = "npm install && PRISMA_CLI_BINARY_TARGETS=rhel-openssl-1.0.x npx prisma generate && npm run build"
   publish = ".next"
   
 [build.environment]
   NODE_VERSION = "20.18.0"
   NPM_VERSION = "10"
+  PRISMA_CLI_BINARY_TARGETS = "rhel-openssl-1.0.x"
 
 # Next.js plugin for Netlify (App Router supported)
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Redirect all requests to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

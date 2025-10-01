@@ -40,7 +40,7 @@ export default function StickyEnrollBanner() {
           href={session ? "/dashboard" : "/register"}
           className="block w-full text-center rounded-lg px-6 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 bg-brand-primary"
         >
-          {session ? "Go to Dashboard" : "Enroll Now"} - <span style={{fontSize: '94%'}}>₹49,900/-</span>
+          {session ? "Go to Dashboard" : "Enroll Now"} - <span style={{fontSize: '94%'}}>₹1/- (Test)</span>
         </Link>
 
         {/* Additional Info */}

@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-// Note: Cashfree integration will be configured later
-// For now, we'll create a mock payment flow
 
 export async function POST(req: Request) {
   try {
@@ -12,12 +10,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { courseId } = await req.json()
-    if (!courseId) {
-      return NextResponse.json({ error: 'Course ID required' }, { status: 400 })
+    const { orderId, courseId } = await req.json()
+    if (!orderId || !courseId) {
+      return NextResponse.json({ error: 'Order ID and Course ID required' }, { status: 400 })
     }
 
-    // Get user and course details
+    // Get user
     const user = await prisma.user.findUnique({
       where: { email: session.user.email }
     })
@@ -26,6 +24,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
+    // Get course
     const course = await prisma.course.findUnique({
       where: { id: courseId }
     })
@@ -34,7 +33,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Course not found' }, { status: 404 })
     }
 
-    // Check if user is already enrolled
+    // Update payment status to PAID
+    const payment = await prisma.payment.update({
+      where: { orderId },
+      data: { status: 'PAID' }
+    })
+
+    // Check if enrollment already exists
     const existingEnrollment = await prisma.enrollment.findUnique({
       where: {
         userId_courseId: {
@@ -45,37 +50,36 @@ export async function POST(req: Request) {
     })
 
     if (existingEnrollment) {
-      return NextResponse.json({ error: 'Already enrolled in this course' }, { status: 409 })
+      return NextResponse.json({ 
+        message: 'Already enrolled',
+        enrollment: existingEnrollment
+      })
     }
 
-    // Generate unique order ID
-    const orderId = `order_${Date.now()}_${user.id.slice(-8)}`
-
-    // Create payment record
-    const payment = await prisma.payment.create({
+    // Create enrollment
+    const enrollment = await prisma.enrollment.create({
       data: {
-        orderId,
-        amount: course.price,
-        currency: course.currency,
-        status: 'CREATED',
         userId: user.id,
-        provider: 'cashfree'
+        courseId: course.id,
+        status: 'ACTIVE',
+        paymentId: payment.id
       }
     })
 
-    // For now, return mock payment data until Cashfree is properly configured
-    // TODO: Replace with actual Cashfree integration
     return NextResponse.json({
-      orderId,
-      paymentSessionId: `mock_session_${orderId}`,
-      orderToken: `mock_token_${orderId}`,
-      mockPayment: true // Flag to indicate this is a mock payment
+      message: 'Mock payment successful and enrollment created',
+      enrollment,
+      payment: {
+        orderId: payment.orderId,
+        status: payment.status,
+        amount: payment.amount
+      }
     })
 
   } catch (error) {
-    console.error('Payment order creation error:', error)
+    console.error('Mock payment success error:', error)
     return NextResponse.json(
-      { error: 'Failed to create payment order' },
+      { error: 'Failed to process mock payment' },
       { status: 500 }
     )
   }
