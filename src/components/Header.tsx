@@ -9,6 +9,7 @@ export default function Header() {
   const { data: session } = useSession()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,26 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isCoursesDropdownOpen) {
+        const target = event.target as Element
+        if (!target.closest('[data-courses-dropdown]')) {
+          setIsCoursesDropdownOpen(false)
+        }
+      }
+    }
+
+    if (isCoursesDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isCoursesDropdownOpen])
 
   return (
     <header 
@@ -53,9 +74,58 @@ export default function Header() {
           <Link href="/" className="text-gray-700 hover:text-brand-primary transition-colors font-medium">
             Home
           </Link>
-          <Link href="#modules" className="text-gray-700 hover:text-brand-primary transition-colors font-medium">
-            Modules
-          </Link>
+          
+          {/* Courses Dropdown */}
+          <div className="relative" data-courses-dropdown>
+            <button
+              onClick={() => setIsCoursesDropdownOpen(!isCoursesDropdownOpen)}
+              className="text-gray-700 hover:text-brand-primary transition-colors cursor-pointer font-medium flex items-center gap-1"
+            >
+              Courses
+              <svg 
+                className={`w-4 h-4 transition-transform ${isCoursesDropdownOpen ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {isCoursesDropdownOpen && (
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                <Link 
+                  href="/course/igcse-music-basic" 
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
+                  onClick={() => setIsCoursesDropdownOpen(false)}
+                >
+                  IGCSE Music Basic
+                </Link>
+                <Link 
+                  href="/course/igcse-music-advanced" 
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
+                  onClick={() => setIsCoursesDropdownOpen(false)}
+                >
+                  IGCSE Music Advanced
+                </Link>
+                <Link 
+                  href="/course/ib-music-comprehensive" 
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
+                  onClick={() => setIsCoursesDropdownOpen(false)}
+                >
+                  IB Music Comprehensive
+                </Link>
+                <Link 
+                  href="/course/ib-igcse-music-educators" 
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
+                  onClick={() => setIsCoursesDropdownOpen(false)}
+                >
+                  IB & IGCSE Music Educators Course
+                </Link>
+              </div>
+            )}
+          </div>
+          
           <Link href="#contact" className="text-gray-700 hover:text-brand-primary transition-colors font-medium">
             Contact
           </Link>
@@ -127,13 +197,68 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link 
-              href="#modules" 
-              className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Modules
-            </Link>
+            {/* Mobile Courses Dropdown */}
+            <div>
+              <button
+                onClick={() => setIsCoursesDropdownOpen(!isCoursesDropdownOpen)}
+                className="w-full px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg text-left flex items-center justify-between"
+              >
+                Courses
+                <svg 
+                  className={`w-4 h-4 transition-transform ${isCoursesDropdownOpen ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {isCoursesDropdownOpen && (
+                <div className="ml-4 mt-2 space-y-1">
+                  <Link 
+                    href="/course/igcse-music-basic" 
+                    className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg transition-colors"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false)
+                      setIsCoursesDropdownOpen(false)
+                    }}
+                  >
+                    IGCSE Music Basic
+                  </Link>
+                  <Link 
+                    href="/course/igcse-music-advanced" 
+                    className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg transition-colors"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false)
+                      setIsCoursesDropdownOpen(false)
+                    }}
+                  >
+                    IGCSE Music Advanced
+                  </Link>
+                  <Link 
+                    href="/course/ib-music-comprehensive" 
+                    className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg transition-colors"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false)
+                      setIsCoursesDropdownOpen(false)
+                    }}
+                  >
+                    IB Music Comprehensive
+                  </Link>
+                  <Link 
+                    href="/course/ib-igcse-music-educators" 
+                    className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg transition-colors"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false)
+                      setIsCoursesDropdownOpen(false)
+                    }}
+                  >
+                    IB & IGCSE Music Educators Course
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link 
               href="#contact" 
               className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
